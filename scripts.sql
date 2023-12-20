@@ -71,3 +71,29 @@ SELECT * from sys_config sc WHERE sc.value < 100;
 -- Podemos também estar limitando quantas rows ele vai retornar
 SELECT * from sys_config sc WHERE sc.value < 100 LIMIT 1;
 
+-- Alterando tabela na exibição
+SELECT id*10 as "Valor da compra", name FROM payments WHERE name == "Compra Carro";
+
+-- WHERE
+SELECT * FROM payments WHERE id*10 == 20;
+SELECT * FROM payments WHERE id*10 > 20;
+SELECT * FROM payments WHERE id*10 < 20;
+
+-- WHERE AND ORDER BY
+SELECT * FROM payments ORDER BY id DESC;
+SELECT * FROM payments ORDER BY id ASC;
+
+-- AND, OR,  NOT
+SELECT * FROM payments WHERE id%2 <> 0 AND name == "Compra de moto";
+SELECT * FROM payments WHERE id%2 <> 0 OR name == "Compra de Carro";
+SELECT * FROM payments WHERE id%2 <> 0 AND NOT name == "Compra de moto";
+
+-- IN
+SELECT * FROM Shippings WHERE shipping_id IN (1, 3, 5);
+
+-- BETWEEN
+SELECT * FROM Shippings WHERE customer BETWEEN 2 AND 5;
+
+-- LIKE
+SELECT * FROM Shippings WHERE status LIKE "P%";
+
