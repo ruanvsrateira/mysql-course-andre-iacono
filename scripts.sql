@@ -97,3 +97,64 @@ SELECT * FROM Shippings WHERE customer BETWEEN 2 AND 5;
 -- LIKE
 SELECT * FROM Shippings WHERE status LIKE "P%";
 
+CREATE TABLE IF NOT EXISTS clientes (
+	id INTEGER NOT NULL,
+    name VARCHAR,
+    PRIMARY KEY (id)
+);
+
+-- Inserindo vários valores
+INSERT INTO clientes (id, name) VALUES (1, "RUan"),(2, "Carla"), (3, null)
+
+-- Para fazer where com o null é necessário usar o is null e não == null
+SELECT * FROM clientes WHERE name IS NULL;
+
+-- Definindo limite de retorno de dados
+SELECT * FROM clientes LIMIT 2;
+
+-- Denindo limite e pulando o primeiro
+SELECT * FROM clientes LIMIT 1, 3
+
+-- Utilizando REGEXP(Regular Expression)
+
+-- Tem a letra a 
+SELECT * FROM clientes WHERE name REGEXP "a";
+
+-- Começam com A e C
+SELECT * FROM clientes WHERE name REGEXT "^a|^d"
+
+-- Tem a combinação UA e CA
+SELECT * FROM clientes WHERE name REGEXP "[uc]a"
+
+-- Começa com ca ou ra
+SELECT * FROM clientes WHERE name REGEXT "^[cr]a"
+
+CREATE TABLE IF NOT EXISTS pagamentos (
+  cliente_id INTEGER NOT NULL,
+  observation VARCHAR
+);
+
+CREATE TABLE IF NOT EXISTS saldos (
+  cliente_id INTEGER NOT NULL,
+  valor FLOAT
+);
+
+INSERT INTO pagamentos (cliente_id, observation) VALUES (1, "Compra de carro");
+INSERT INTO saldos (cliente_id, valor) VALUES (1, 1000.00);
+
+-- Unindo tabelas com JOIN
+SELECT * FROM clientes JOIN pagamentos ON clientes.id == pagamentos.cliente_id;
+
+-- Unindo tabelas e definindo quais campos aparecerão
+SELECT clientes.id, clientes.name, pagamentos.observation FROM clientes JOIN pagamentos ON clientes.id == pagamentos.cliente_id;
+
+-- Adicionamento apelido (ALIAS) a nosso filtragem juntamente com o JOIN
+SELECT c.id, c.name, p.observation FROM clientes c JOIN pagamentos p ON c.id == p.cliente_id;
+
+-- Listando mais de 2 tabelas com o JOIN
+SELECT 
+c.id, c.name, p.observation, s.valor
+FROM clientes c 
+JOIN pagamentos p ON c.id == p.cliente_id
+JOIN saldos s ON c.id == s.cliente_id;
+
