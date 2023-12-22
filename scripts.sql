@@ -158,3 +158,54 @@ FROM clientes c
 JOIN pagamentos p ON c.id == p.cliente_id
 JOIN saldos s ON c.id == s.cliente_id;
 
+CREATE table cidade (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(255)
+);
+
+CREATE TABLE cidadao (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(255),
+  id_cidade INTEGER
+);
+
+-- Várias Inserções
+INSERT INTO cidade (name) VALUES ("araraquara"),("São carlos"),("Boa esperança do sul"),("Goianese");
+INSERT INTO cidadao VALUES (DEFAULT, "Ruan", 2);
+
+-- Realizando cópia de tabela	
+CREATE TABLE cidade_backup AS SELECT * FROM cidade;
+
+-- Realizando a remoção de uma tabela 
+DROP TABLE cidade_backup;
+-- Realizando a remoção de todos os dados da tabela
+TRUNCATE TABLE cidade_backup;
+
+-- Atualizando dados da tabela
+UPDATE cidade SET name = "Ferreiro Rocher" WHERE id = 1;
+
+-- Deletando dados da tabela
+DELETE FROM cidade WHERE id = 1;
+
+-- Maior Menor e Média
+SELECT MAX(id) as "Maior ID" FROM cidade;
+SELECT MIN(id) as "Menor ID" FROM cidade;
+SELECT AVG(id) as "Média dos IDs" FROM cidade;
+
+-- Soma dos IDS
+SELECT SUM(id) as "Soma de IDS", COUNT(id) as "Número de cidades" FROM cidade;
+
+-- Soma dos IDS com filtro de IDS maior que 2
+SELECT SUM(id) as "Soma de IDS", COUNT(id) as "Número de cidades" FROM cidade WHERE id > 2;
+
+INSERT INTO cidade VALUES (6, "araraquara"); 
+
+-- Id de cada um vezes 1000 agrupados por id
+SELECT id*1000 as "ID da galera" FROM cidade GROUP BY (id) ORDER BY id DESC;
+
+-- JOIN
+SELECT cidadao.id, cidadao.name, cidade.name as "Cidade do residente" FROM cidadao JOIN cidade ON cidadao.id_cidade = cidade.id;
+
+-- HAVING filtrando com o having que ajuda na filtragem dos grupos
+SELECT name FROM cidade GROUP BY (id) HAVING id > 4;
+
