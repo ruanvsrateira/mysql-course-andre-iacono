@@ -253,3 +253,45 @@ SELECT * FROM customer_actives;
 
 -- deletando view
 DROP VIEW customers_not_actives;
+
+
+-- Funções com Strings
+
+-- Removendo espaços com a função TRIM()
+SELECT TRIM('      Carros             ') as 'result';
+
+-- Removendo espaços da esquerda com a função TRIM()
+SELECT LTRIM('      Carros             ') as 'result';
+
+-- Removendo espaços da direita com a função TRIM()
+SELECT RTRIM('      Carros             ') as 'result';
+
+-- Removendo todas Letras As do inicio
+SELECT TRIM(BOTH 'a' FROM 'aaaaCarros') as 'result';
+
+-- Removendo todas Letras As do inicio
+SELECT TRIM(LEADING 'a' FROM 'aaaaCarrosaaaaaaaa') as 'result';
+
+-- Removendo todas Letras As do final
+SELECT TRIM(TRAILING 'a' FROM 'aaaaCarros') as 'result';
+
+-- Procurando posição da letra o
+SELECT LOCATE('o', 'Carros') as "Posição da letra O";
+
+-- Deixando texto minúsculo
+SELECT LCASE("CARROS") as "minúsculo";
+
+-- Deixando texto maiúsculo
+SELECT UCASE("carros") as "maiúsculo";
+
+-- Descobrindo tamanho da string
+SELECT LENGTH("carros");
+
+-- Repetindo string
+SELECT REPEAT("carros", 4);
+
+-- Listando as 2 primeiras letras
+SELECT LEFT("carros", 2);
+
+-- Listando as 2 últimas letras
+SELECT RIGHT("carros", 2);
