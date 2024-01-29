@@ -209,3 +209,47 @@ SELECT cidadao.id, cidadao.name, cidade.name as "Cidade do residente" FROM cidad
 -- HAVING filtrando com o having que ajuda na filtragem dos grupos
 SELECT name FROM cidade GROUP BY (id) HAVING id > 4;
 
+-- Criando banco de dados chamado relacionamentos
+CREATE SCHEMA relacionamentos;
+
+-- Selecionando o banco de dados criado
+USE relacionamentos;
+
+-- Criando a tabela de funcionarios
+CREATE TABLE funcionarios(
+  fun_id INT AUTO_INCREMENT,
+  fun_nome VARCHAR(100) NOT NULL,
+  fun_sexo ENUM("M", "F") NOT NULL DEFAULT "M",
+  fun_salario DECIMAL(10, 2),
+  
+  PRIMARY KEY (fun_id)
+);
+
+DESC funcionarios;
+
+-- Criando a tabela de conjuge
+CREATE TABLE conjuge(
+ conj_id INT AUTO_INCREMENT,
+ conj_nome VARCHAR(100),
+ conj_data_nasc DATE,
+ fun_id int UNIQUE,
+ 
+  PRIMARY KEY (conj_id),
+  FOREIGN KEY(fun_id) REFERENCES funcionarios(fun_id),
+  UNIQUE (fun_id)
+);
+
+DESC conjuge;
+
+-- Criando Visualizações no SQL (views) - São consultas salvas em tabelas virtuais armazenadas.
+USE sakila;
+CREATE VIEW customers_view AS SELECT * FROM sakila.customer;
+CREATE VIEW customers_actives AS SELECT * FROM sakila.customer WHERE active = 1;
+CREATE VIEW customers_not_actives AS SELECT * FROM sakila.customer WHERE active != 1;
+
+-- modificando view
+CREATE OR REPLACE VIEW customer_actives AS SELECT * FROM sakila.customer WHERE active != 1;
+SELECT * FROM customer_actives;
+
+-- deletando view
+DROP VIEW customers_not_actives;
