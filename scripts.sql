@@ -295,3 +295,67 @@ SELECT LEFT("carros", 2);
 
 -- Listando as 2 últimas letras
 SELECT RIGHT("carros", 2);
+
+-- Criando projeto de locadora de carros
+CREATE DATABASE carros;
+
+USE carros;
+
+CREATE TABLE marcas (
+	id INT NOT NULL AUTO_INCREMENT,
+    nome_marca VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+DESCRIBE marcas;
+
+ALTER TABLE marcas ADD origem VARCHAR(255);
+
+CREATE TABLE inventario (
+	id INT NOT NULL AUTO_INCREMENT,
+    modelo VARCHAR(255) NOT NULL,
+    transmissao ENUM("manual", "automatico") NOT NULL,
+    motor FLOAT NOT NULL,
+    combustivel ENUM("gasolina", "alcool", "gas", "elétrico", "diesel", "flex"),
+    marca_id INT NOT NULL,
+    
+    FOREIGN KEY (marca_id) REFERENCES marcas(id),
+    PRIMARY KEY (id)
+);
+
+DESCRIBE inventario;
+
+CREATE TABLE clientes (
+	id INT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(30),
+    sobrenome VARCHAR(30),
+    endereco VARCHAR(255),
+    
+    PRIMARY KEY (id)
+);
+
+DESCRIBE clientes;
+
+INSERT INTO clientes (nome, sobrenome, endereco)
+VALUES 
+	("Ruan", "Rateira", "GPX / Rua das rosas / 106"),
+	("Pedro", "Rafael", "GPX / Rua Rio de janeiro / 10"), 
+    ("Gabriel", "Antonio", "GPX / Rua Minas gerais / 16"), 
+	("Jonas", "Rateira", "GPX / Rua das rosas / 106"),  
+    ("Edineia", "Rateira", "GPX / Rua das rosas / 106");
+
+
+INSERT INTO marcas (nome_marca, origem)
+VALUES
+ ("BMW", "Alemanha"),
+ ("Fiat", "ITaliana"),
+ ("Mercedes-Benz", "Alemanha"),
+ ("Renault", "França"),
+ ("Jaguar", "Inglaterra"),
+ ("Toyota", "Japão");
+
+INSERT INTO inventario (modelo, transmissao, motor, combustivel, marca_id) VALUES
+("Toyota Hilux", "manual", 2.3, "diesel", 6),
+("Fiat Palio", "manual", 1.0, "gasolina", 2);
+
+SELECT * FROM clientes;
