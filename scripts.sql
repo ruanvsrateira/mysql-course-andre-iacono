@@ -359,3 +359,44 @@ INSERT INTO inventario (modelo, transmissao, motor, combustivel, marca_id) VALUE
 ("Fiat Palio", "manual", 1.0, "gasolina", 2);
 
 SELECT * FROM clientes;
+
+
+-- Listando usuários 
+USE mysql;
+SELECT * FROM user;
+SELECT * FROM mysql.user;
+
+-- Criando usuário
+CREATE USER ana IDENTIFIED BY 'ana@123';
+CREATE USER joao@127.0.0.1 IDENTIFIED BY 'joao@123';
+CREATE USER priscila@andreiacono.com.br IDENTIFIED BY 'senha@123';
+
+-- Deletando usuários
+DROP USER priscila@andreiacono.com.br;
+
+-- Trocando senha de um outro usuário
+SET PASSWORD FOR joao@127.0.0.1 = 'jp';
+
+-- Trocando senha do usuário logado
+SET PASSWORD = "root";
+
+-- Verificando nível de permissão
+SHOW GRANTS FOR joao@127.0.0.1
+;
+
+-- Dando previlégio para a Ana CRUD para o bd sakila
+GRANT SELECT, INSERT, UPDATE, DELETE
+ON sakila.*
+TO ana;
+
+-- Dando previlégio de Admin do bd sakila para a Ana
+GRANT ALL ON sakila.* TO ana;
+
+-- Dando previlégio máximo para o joão sobre o mysql
+GRANT ALL ON *.* TO joao@127.0.0.1;
+
+-- Dando previlégio de Select Insert e Update para a priscila sobre o bd sakila
+GRANT SELECT, INSERT, UPDATE ON sakila.* TO priscila@andreiacono.com.br;
+
+-- Removendo previlégio de Update para priscila sobre o bd sakila
+REVOKE UPDATE ON sakila.* FROM priscila@andreiacono.com.br
